@@ -44,6 +44,12 @@
     'alts
     `(,data ()))))
 
+(define (start-pretty-slide #:title [title ""] . data)
+  (play-n
+   #:skip-first? #t
+   #:skip-last? #f
+   #:title title
+   (apply animate-slide `(next ,@data))))
 
 (define (header-slide #:title [title ""] #:header [header ""] . data)
   (play-n
@@ -103,6 +109,7 @@
     [(k #:title section-title slides ...)
      ; =>
      (with-syntax ([pretty-slide (datum->syntax #'k 'pretty-slide)]
+                   [start-pretty-slide (datum->syntax #'k 'start-pretty-slide)]
                    [header-slide (datum->syntax #'k 'header-slide)]
                    [picture-slide (datum->syntax #'k 'picture-slide)])
        #'(let ()
@@ -116,8 +123,18 @@
               (animate-slide
                'next
                'alts
+
                `(,data ()))))
-           
+
+           (define (start-pretty-slide #:title [title ""] . data)
+             (unless title
+               (set! title section-title))
+             (play-n
+              #:skip-first? #t
+              #:skip-last? #f
+              #:title title
+              (apply animate-slide `(next ,@data))))
+
            (define (header-slide #:title [title #f] #:header [header ""] . data)
              (unless title
                (set! title section-title))
@@ -152,23 +169,34 @@
  (colorize (medium-text "Michael Bradshaw") "blue")
  (colorize (t "University of Utah") "red"))
 
-(title-slide
- (colorize (large-text "Symmetric") "black")
- (hbl-append (colorize (medium-text "Message  →  ") "black") (colorize (medium-text "Key") "blue") (colorize (medium-text "  →  af23c2...") "black"))
- (colorize (medium-text "↑") "black")
- (colorize (medium-text "Same key") "black")
- (colorize (medium-text "↓") "black")
- (hbl-append (colorize (medium-text "af23c2...  →  ") "black") (colorize (medium-text "Key") "blue") (colorize (medium-text "  →  Message") "black"))
- )
+(start-pretty-slide
+ (large-text "Symmetric")
+ (large-text "Vs.")
+ (large-text "Asymmetric"))
 
-(title-slide
- (colorize (large-text "Asymmetric") "black")
- (hbl-append (colorize (medium-text "Message  →  ") "black") (colorize (medium-text "Key #1") "blue") (colorize (medium-text "  →  af23c2...") "black"))
- (colorize (medium-text "↑") "black")
- (colorize (medium-text "Different keys") "black")
- (colorize (medium-text "↓") "black")
- (hbl-append (colorize (medium-text "af23c2...  →  ") "black") (colorize (medium-text "Key #2") "red") (colorize (medium-text "  →  Message") "black"))
- )
+(header-slide
+ #:header (large-text "Symmetric")
+ (hbl-append (medium-text "Message  →  ")
+             (colorize (medium-text "Key") "blue")
+             (medium-text "  →  af23c2..."))
+ (medium-text "↑")
+ (medium-text "Same key")
+ (medium-text "↓")
+ (hbl-append (medium-text "af23c2...  →  ")
+             (colorize (medium-text "Key") "blue")
+             (medium-text "  →  Message")))
+
+(header-slide
+ #:header (colorize (large-text "Asymmetric") "black")
+ (hbl-append (medium-text "Message  →  ")
+             (colorize (medium-text "Key #1") "blue")
+             (medium-text "  →  af23c2..."))
+ (medium-text "↑")
+ (medium-text "Different keys")
+ (medium-text "↓")
+ (hbl-append (medium-text "af23c2...  →  ")
+             (colorize (medium-text "Key #2") "red")
+             (medium-text "  →  Message")))
 
 (pretty-slide
  (massive-text "Questions?"))
