@@ -147,10 +147,28 @@
 
 ; Slideshow
 (title-slide
- (colorize (large-text "Machine Learning Tools") "black")
+ (colorize (large-text "Symmetric Cryptography") "black")
  (colorize (medium-text "Leif Andersen") "blue")
  (colorize (medium-text "Michael Bradshaw") "blue")
  (colorize (t "University of Utah") "red"))
+
+(title-slide
+ (colorize (large-text "Symmetric") "black")
+ (hbl-append (colorize (medium-text "Message  →  ") "black") (colorize (medium-text "Key") "blue") (colorize (medium-text "  →  af23c2...") "black"))
+ (colorize (medium-text "↑") "black")
+ (colorize (medium-text "Same key") "black")
+ (colorize (medium-text "↓") "black")
+ (hbl-append (colorize (medium-text "af23c2...  →  ") "black") (colorize (medium-text "Key") "blue") (colorize (medium-text "  →  Message") "black"))
+ )
+
+(title-slide
+ (colorize (large-text "Asymmetric") "black")
+ (hbl-append (colorize (medium-text "Message  →  ") "black") (colorize (medium-text "Key #1") "blue") (colorize (medium-text "  →  af23c2...") "black"))
+ (colorize (medium-text "↑") "black")
+ (colorize (medium-text "Different keys") "black")
+ (colorize (medium-text "↓") "black")
+ (hbl-append (colorize (medium-text "af23c2...  →  ") "black") (colorize (medium-text "Key #2") "red") (colorize (medium-text "  →  Message") "black"))
+ )
 
 (pretty-slide
  (massive-text "Questions?"))
