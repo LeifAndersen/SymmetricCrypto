@@ -2,7 +2,7 @@
 
 (require slideshow/play
          slideshow/code
-         ;slideshow/latex
+         slideshow/latex
          (for-syntax syntax/stx))
 
 ; Library
@@ -18,14 +18,14 @@
 (define (double-massive-text txt)
   (text txt (current-main-font) 240))
 
-;(define (medium-$$ txt)
-;  (scale ($$ txt) 1.5))
+(define (medium-$$ txt)
+  (scale ($$ txt) 1.5))
 
-;(define (large-$$ txt)
-;  (scale ($$ txt) 2))
+(define (large-$$ txt)
+  (scale ($$ txt) 2))
 
-;(define (massive-$$ txt)
-;  (scale ($$ txt) 3))
+(define (massive-$$ txt)
+  (scale ($$ txt) 3))
 
 (define (title-slide . data)
   (play-n
@@ -335,7 +335,7 @@
  (item "Another disadvantage"))
 
 (pretty-slide
- (massive-text "Hasing"))
+ (massive-text "Hashing"))
 
 (pretty-slide
  (massive-text "What is hashing?"))
