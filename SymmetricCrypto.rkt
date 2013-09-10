@@ -52,7 +52,8 @@
    (apply animate-slide `(next ,@data))))
 
 (define (header-slide #:title [title ""] #:reversed [reversed #f]
-                      #:append [append "top"]
+                      #:append [append "top"] #:distance [distance 0]
+                      #:fade-in [fade-in #t] #:fade-out [fade-out #t]
                       #:header [header ""] . data)
   (play-n
    #:title title
@@ -60,12 +61,42 @@
    #:skip-last? #t
    (λ (n1 n2 n3)
      (fade-pict
-      n3 (fade-pict 
-          n1 (t "")
+      (if fade-out n3 0)
+      (fade-pict
+          (if fade-in n1 1)
+          (t "")
           (fade-around-pict
-           n2 header (λ (x)
-                       (apply vc-append `(0 ,x ,@data)))))
+           (if reversed
+               (- 1 n2)
+               n2)
+           header (λ (x)
+                       (match append
+                         ["top"    (apply vc-append `(,distance ,x ,@data))]
+                         ["bottom" (apply vc-append `(,distance ,@data ,x))]
+                         ["left"   (apply hc-append `(,distance ,x ,@data))]
+                         ["right"  (apply hc-append `(,distance ,@data ,x))]
+                         [else     (apply vc-append `(,distance ,x ,@data))]))))
       (t "")))))
+
+(define (transition-slide #:title [title ""] #:reversed [reversed #f]
+                      #:append [append "top"] #:distance [distance 0]
+                      #:header [header ""] . data)
+  (play-n
+   #:title title
+   #:skip-first? #t
+   #:skip-last? #t
+   (λ (n)
+      (fade-around-pict
+       (if reversed
+           (- 1 n)
+           n)
+       header (λ (x)
+                 (match append
+                   ["top"    (apply vc-append `(,distance ,x ,@data))]
+                   ["bottom" (apply vc-append `(,distance ,@data ,x))]
+                   ["left"   (apply hc-append `(,distance ,x ,@data))]
+                   ["right"  (apply hc-append `(,distance ,@data ,x))]
+                   [else     (apply vc-append `(,distance ,x ,@data))]))))))
 
 (define-syntax (picture-slide stx)
   (syntax-case stx ()
@@ -176,8 +207,17 @@
  (large-text "Vs.")
  (large-text "Asymmetric"))
 
+(transition-slide
+ #:reversed #t
+ #:distance 25
+ #:header (large-text "Symmetric")
+ (large-text "Vs.")
+ (large-text "Asymmetric"))
+
 (header-slide
  #:header (large-text "Symmetric")
+ #:fade-in #f
+ #:fade-out #f
  (hbl-append (medium-text "Message  →  ")
              (colorize (medium-text "Key") "blue")
              (medium-text "  →  af23c2..."))
@@ -188,7 +228,40 @@
              (colorize (medium-text "Key") "blue")
              (medium-text "  →  Message")))
 
+(transition-slide
+ #:header (large-text "Symmetric")
+ #:reversed #t
+ (hbl-append (medium-text "Message  →  ")
+             (colorize (medium-text "Key") "blue")
+             (medium-text "  →  af23c2..."))
+ (medium-text "↑")
+ (medium-text "Same key")
+ (medium-text "↓")
+ (hbl-append (medium-text "af23c2...  →  ")
+             (colorize (medium-text "Key") "blue")
+             (medium-text "  →  Message")))
+
+(transition-slide
+ #:distance 25
+ #:header (large-text "Symmetric")
+ (large-text "Vs.")
+ (large-text "Asymmetric"))
+
+(slide
+ (large-text "Symmetric")
+ (large-text "Vs.")
+ (large-text "Asymmetric"))
+
+(transition-slide
+ #:append "bottom"
+ #:distance 25
+ #:reversed #t
+ (large-text "Symmetric")
+ (large-text "Vs.")
+ #:header (large-text "Asymmetric"))
+
 (header-slide
+ #:fade-in #f
  #:header (colorize (large-text "Asymmetric") "black")
  (hbl-append (medium-text "Message  →  ")
              (colorize (medium-text "Key #1") "blue")
