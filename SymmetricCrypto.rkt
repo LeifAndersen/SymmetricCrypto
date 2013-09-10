@@ -320,6 +320,7 @@
 (pretty-slide
  #:title "Advantages"
  (item "Relatively Fast")
+ 'next
  (item "An Advantage")
  'next
  (item "Another Advantage"))
@@ -351,7 +352,7 @@
  (massive-text "What is Salt?"))
 
 (picture-slide
- (bitmap "SLCPD.png")
+ (scale (bitmap "SLCPD.jpg") 2.5)
  (bitmap "google.png")
  (colorize (double-massive-text "FAIL!") "red"))
 
