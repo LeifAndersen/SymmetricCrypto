@@ -51,7 +51,9 @@
    #:title title
    (apply animate-slide `(next ,@data))))
 
-(define (header-slide #:title [title ""] #:header [header ""] . data)
+(define (header-slide #:title [title ""] #:reversed [reversed #f]
+                      #:append [append "top"]
+                      #:header [header ""] . data)
   (play-n
    #:title title
    #:skip-first? #t
@@ -70,7 +72,7 @@
     [(k #:title title first-pic pic ...)
      ; =>
      #'(picture-slide* title first-pic pic ...)]
-    
+
     [(k first-pic pic ...)
      ; =>
      #'(picture-slide* "" first-pic pic ...)]))
@@ -82,7 +84,7 @@
            ; =>
            #`(fade-pict #,(stx-car id) #,acc
                         (scale #,(stx-car pic) #,(stx-car id)))]
-          
+
           [else
            ; =>
            (build-transitions (stx-cdr pic) (stx-cdr id)
@@ -149,17 +151,17 @@
                                       (fade-around-pict n2 header (λ (x)
                                                                     (apply vc-append `(0 ,x ,@data)))))
                 (t "")))))
-                
+
            (define-syntax (picture-slide stx)
              (syntax-case stx ()
                [(k #:title title first-pic pic (... ...))
                 ; =>
                 #'(picture-slide* title first-pic pic (... ...))]
-               
+
                [(k first-pic pic (... ...))
                 ; =>
                 #'(picture-slide* section-title first-pic pic (... ...))]))
-           
+
            slides ...))]))
 
 ; Slideshow
