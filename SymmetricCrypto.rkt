@@ -15,6 +15,9 @@
 (define (massive-text txt)
   (text txt (current-main-font) 120))
 
+(define (double-massive-text txt)
+  (text txt (current-main-font) 240))
+
 ;(define (medium-$$ txt)
 ;  (scale ($$ txt) 1.5))
 
@@ -197,6 +200,28 @@
                                 [else     (apply vc-append `(,distance ,x ,@data))]))))
                   (t "")))))
 
+           (define (transition-slide #:title [title ""] #:reversed [reversed #f]
+                                     #:append [append "top"] #:distance [distance 0]
+                                     #:header [header ""] . data)
+             (unless title
+               (set! title section-title))
+             (play-n
+              #:title title
+              #:skip-first? #t
+              #:skip-last? #t
+              (λ (n)
+                 (fade-around-pict
+                  (if reversed
+                      (- 1 n)
+                      n)
+                  header (λ (x)
+                            (match append
+                              ["top"    (apply vc-append `(,distance ,x ,@data))]
+                              ["bottom" (apply vc-append `(,distance ,@data ,x))]
+                              ["left"   (apply hc-append `(,distance ,x ,@data))]
+                              ["right"  (apply hc-append `(,distance ,@data ,x))]
+                              [else     (apply vc-append `(,distance ,x ,@data))]))))))
+
            (define-syntax (picture-slide stx)
              (syntax-case stx ()
                [(k #:title title first-pic pic (... ...))
@@ -288,6 +313,50 @@
   (hbl-append (medium-text "af23c2...  →  ")
               (colorize (medium-text "Key #2") "red")
               (medium-text "  →  Message"))))
+
+(pretty-slide
+ (massive-text "Advanteges"))
+
+(pretty-slide
+ #:title "Advantages"
+ (item "Relatively Fast")
+ (item "An Advantage")
+ 'next
+ (item "Another Advantage"))
+
+(pretty-slide
+ (massive-text "Disadvanteges"))
+
+(pretty-slide
+ #:title "Disadvantages"
+ (item "A disadvantage")
+ 'next
+ (item "Another disadvantage"))
+
+(pretty-slide
+ (massive-text "Hasing"))
+
+(pretty-slide
+ (massive-text "What is hashing?"))
+
+(pretty-slide
+ (massive-text "Rainbow Tables"))
+
+(header-slide
+ #:append "left"
+ #:header (massive-text "Hashing")
+ (massive-text " with Salt"))
+
+(pretty-slide
+ (massive-text "What is Salt?"))
+
+(picture-slide
+ (bitmap "SLCPD.png")
+ (bitmap "google.png")
+ (colorize (double-massive-text "FAIL!") "red"))
+
+(pretty-slide
+ (massive-text "Blowfish"))
 
 (pretty-slide
  (massive-text "Questions?"))
