@@ -98,7 +98,7 @@
  #:title "Advantages"
  (item "Relatively Fast")
  'next
- (item "An Advantage")
+ (item "Password Based Encryption")
  'next
  (item "Another Advantage"))
 
@@ -127,8 +127,11 @@
 (pretty-slide
  (massive-text "Hashing"))
 
-(pretty-slide
+(pretty->flip-slide
  (massive-text "What is hashing?"))
+
+(flip->pretty-slide
+ (large-text "A one way function"))
 
 (pretty-slide
  (massive-text "Rainbow Tables"))
