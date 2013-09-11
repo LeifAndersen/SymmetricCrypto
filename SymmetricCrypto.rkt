@@ -116,13 +116,17 @@
 
 (pretty-slide
  #:title "Common Algorithms"
+ (item "AES")
+ 'next
  (item "DES")
  'next
  (item "3DES")
  'next
  (item "Blowfish")
  'next
- (item "Twofish"))
+ (item "Twofish")
+ 'next
+ (item "Serpent"))
 
 (pretty-slide
  (massive-text "Hashing"))
