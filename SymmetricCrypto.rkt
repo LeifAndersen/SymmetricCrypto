@@ -114,15 +114,26 @@
 (pretty-slide
  (large-text "Common Algorithms"))
 
+(header-slide
+ #:header (massive-text "rot13")
+ (large-text "M-x dunnet"))
+
 (pretty-slide
  #:title "Common Algorithms"
+ (item "AES")
+ 'next
  (item "DES")
  'next
  (item "3DES")
  'next
  (item "Blowfish")
  'next
- (item "Twofish"))
+ (item "Twofish")
+ 'next
+ (item "Serpent"))
+
+(pretty-slide
+ (massive-text "AES"))
 
 (pretty-slide
  (massive-text "Hashing"))
