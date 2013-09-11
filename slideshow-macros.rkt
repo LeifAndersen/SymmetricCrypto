@@ -37,8 +37,6 @@
     'alts
     `(,data ()))))
 
-
-
 (define (pretty-slide #:title [title ""] . data)
   (play-n
    #:skip-first? #t
@@ -48,6 +46,46 @@
     'next
     'alts
     `(,data ()))))
+
+(define (flip-slide #:title [title ""]
+                    #:flip-in [flip-in #t] #:flip-out [flip-out #t]
+                    #:distance [distance 0] . data)
+  (play-n
+   #:skip-first? #t
+   #:skip-last? #t
+   #:title title
+   (λ (n1 n2)
+      (scale
+       (apply vc-append `(,distance ,@data))
+       (max 0.01 (* n1 (- 1 n2)) 1)))))
+
+(define (pretty->flip-slide #:title [title ""]
+                            #:fade-in [fade-in #t] #:flip-out [flip-out #t]
+                            #:distance [distance 0] . data)
+  (play-n
+   #:skip-first? #t
+   #:skip-last? #t
+   (λ (n1 n2)
+      (fade-pict
+       (if fade-in n1 1)
+       (t "")
+       (scale
+        (apply vc-append `(,distance ,@data))
+        (max 0.01 (- 1 n2)) 1)))))
+
+(define (flip->pretty-slide #:title [title ""]
+                            #:flip-in [flip-in #t] #:fade-out [fade-out #t]
+                            #:distance [distance 0] . data)
+  (play-n
+   #:skip-first? #t
+   #:skip-last? #t
+   (λ (n1 n2)
+      (fade-pict
+       (if fade-out n2 1)
+       (scale
+        (apply vc-append `(,distance ,@data))
+        (max 0.01 n1) 1)
+       (t "")))))
 
 (define (start-pretty-slide #:title [title ""] . data)
   (play-n
@@ -161,8 +199,51 @@
               (animate-slide
                'next
                'alts
-
                `(,data ()))))
+
+           (define (flip-slide #:title [title ""]
+                               #:flip-in [flip-in #t] #:flip-out [flip-out #t]
+                               #:distance [distance 0] . data)
+             (unless title
+               (set! title section-title))
+             (play-n
+              #:skip-first? #t
+              #:skip-last? #t
+              #:title title
+              (λ (n1 n2)
+                 (scale
+                  (apply vc-append `(,distance ,@data))
+                  (max 0.01 (* n1 (- 1 n2)) 1)))))
+
+           (define (pretty->flip-slide #:title [title ""]
+                                       #:fade-in [fade-in #t] #:flip-out [flip-out #t]
+                                       #:distance [distance 0] . data)
+             (play-n
+              #:skip-first? #t
+              #:skip-last? #t
+              (λ (n1 n2)
+                 (fade-pict
+                  (if fade-in n1 1)
+                  (t "")
+                  (scale
+                   (apply vc-append `(,distance ,@data))
+                   (max 0.01 (- 1 n2)) 1)))))
+
+           (define (flip->pretty-slide #:title [title ""]
+                                       #:flip-in [flip-in #t] #:fade-out [fade-out #t]
+                                       #:distance [distance 0] . data)
+             (unless title
+               (set! title section-title))
+             (play-n
+              #:skip-first? #t
+              #:skip-last? #t
+              (λ (n1 n2)
+                 (fade-pict
+                  (if fade-out n2 1)
+                  (scale
+                   (apply vc-append `(,distance ,@data))
+                   (max 0.01 n1) 1)
+                  (t "")))))
 
            (define (start-pretty-slide #:title [title ""] . data)
              (unless title
