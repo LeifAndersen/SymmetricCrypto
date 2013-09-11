@@ -12,6 +12,12 @@
  (colorize (medium-text "Michael Bradshaw") "blue")
  (colorize (t "University of Utah") "red"))
 
+(pretty->flip-slide
+ (large-text "What is Encryption?"))
+
+(flip->pretty-slide
+ (large-text "Pithy Responce"))
+
 (section
  #:title ""
  (start-pretty-slide
@@ -101,9 +107,22 @@
 
 (pretty-slide
  #:title "Disadvantages"
- (item "A disadvantage")
+ (item "Shared Key")
  'next
  (item "Another disadvantage"))
+
+(pretty-slide
+ (large-text "Common Algorithms"))
+
+(pretty-slide
+ #:title "Common Algorithms"
+ (item "DES")
+ 'next
+ (item "3DES")
+ 'next
+ (item "Blowfish")
+ 'next
+ (item "Twofish"))
 
 (pretty-slide
  (massive-text "Hashing"))
@@ -124,11 +143,10 @@
 
 (picture-slide
  (scale (bitmap "SLCPD.jpg") 2.5)
+ (scale (bitmap "SLCPDdump.png") 0.65)
  (bitmap "google.png")
+ (bitmap "RainbowCracked.png")
  (colorize (double-massive-text "FAIL!") "red"))
-
-(pretty-slide
- (massive-text "Blowfish"))
 
 (pretty-slide
  (massive-text "Questions?"))
