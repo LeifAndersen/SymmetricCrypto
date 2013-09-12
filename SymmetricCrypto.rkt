@@ -152,11 +152,11 @@
  #:header (massive-text "Hashing")
  (massive-text " with Salt"))
 
-(pretty->filp-slide
+(pretty->flip-slide
  (massive-text "What is Salt?"))
 
 (flip-slide
- (bitmap "saltshaker.jpg"))
+ (scale (bitmap "saltshaker.jpg") 2))
 
 (flip->pretty-slide
  (massive-text "<hash>:<salt>"))

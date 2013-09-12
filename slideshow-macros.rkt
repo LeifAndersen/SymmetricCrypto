@@ -57,7 +57,7 @@
    (λ (n1 n2)
       (scale
        (apply vc-append `(,distance ,@data))
-       (max 0.01 (* n1 (- 1 n2)) 1)))))
+       (max 0.01 (* n1 (- 1 n2))) 1))))
 
 (define (pretty->flip-slide #:title [title ""]
                             #:fade-in [fade-in #t] #:flip-out [flip-out #t]
