@@ -152,8 +152,23 @@
  #:header (massive-text "Hashing")
  (massive-text " with Salt"))
 
-(pretty-slide
+(pretty->filp-slide
  (massive-text "What is Salt?"))
+
+(flip-slide
+ (bitmap "saltshaker.jpg"))
+
+(flip->pretty-slide
+ (massive-text "<hash>:<salt>"))
+
+(pretty-slide
+ (large-text "Reasons to Salt"))
+
+(pretty-slide
+ #:title "Reasons to Salt"
+ (item "Reason")
+ 'next
+ (item "Aother Reason"))
 
 (picture-slide
  (scale (bitmap "SLCPD.jpg") 2.5)
