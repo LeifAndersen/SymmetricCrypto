@@ -71,7 +71,7 @@
   (large-text "Asymmetric"))
 
  (transition-slide
-  #:append "bottom"
+  #:append 'bottom
   #:distance 25
   #:reversed #t
   (large-text "Symmetric")
@@ -145,10 +145,21 @@
  (large-text "A one way function"))
 
 (pretty-slide
+ (massive-text "Common Hash Functions"))
+
+(pretty-slide
+ #:title "Common Hash Functions"
+ (item "MD5")
+ 'next
+ (item "SHA--1")
+ 'next
+ (item "SHA-256"))
+
+(pretty-slide
  (massive-text "Rainbow Tables"))
 
 (header-slide
- #:append "left"
+ #:append 'left
  #:header (massive-text "Hashing")
  (massive-text " with Salt"))
 
@@ -170,12 +181,41 @@
  'next
  (item "Aother Reason"))
 
-(picture-slide
+#;(picture-slide
  (scale (bitmap "SLCPD.jpg") 2.5)
  (scale (bitmap "SLCPDdump.png") 0.65)
  (bitmap "google.png")
  (bitmap "RainbowCracked.png")
  (colorize (double-massive-text "FAIL!") "red"))
+
+(pretty-slide
+ (massive-text "Asymmetric Cryptography"))
+
+(pretty-slide
+ #:title "Common Algorithms"
+ (item "RSA")
+ 'next
+ (item "ECC"))
+
+(pretty->flip-slide
+ (massive-text "RSA"))
+
+(flip->pretty-slide
+ (massive-text "Key Generation"))
+
+#;(section
+ #:title "RSA Key Generation"
+ (picture-slide
+  (hc-append 0
+             (medium-text "Choose to numbers ")
+             (medium-$$ "p")
+             (medium-text " and ")
+             (medium-$$ "q"))
+  (massive-$$ "n = pq"))
+ )
+
+(pretty-slide
+ (massive-text "ECC"))
 
 (pretty-slide
  (massive-text "Questions?"))
