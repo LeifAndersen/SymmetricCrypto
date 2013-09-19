@@ -94,6 +94,15 @@
    #:title title
    (apply animate-slide `(next ,@data))))
 
+(define (end-pretty-slide #:title [title ""] . data)
+  (play-n
+   #:skip-first? #f
+   #:skip-last? #t
+   #:title title
+   (animate-slide
+    'alts
+    `(,data ()))))
+
 (define (header-slide #:title [title ""] #:reversed [reversed #f]
                       #:append [append 'top] #:distance [distance 0]
                       #:fade-in [fade-in #t] #:fade-out [fade-out #t]
@@ -175,13 +184,21 @@
 
 (define-syntax (picture-slide stx)
   (syntax-case stx ()
+    [(k #:title title #:fade-in fade-in #:fade-out fade-out first-pic pic ...)
+     ; =>
+     #'(picture-slide* title fade-in fade-out first-pic pic ...)]
+
     [(k #:title title first-pic pic ...)
      ; =>
-     #'(picture-slide* title first-pic pic ...)]
+     #'(picture-slide* title #t #t first-pic pic ...)]
+
+    [(k #:fade-in fade-in #:fade-out fade-out first-pic pic ...)
+     ; =>
+     #'(picture-slide* "" fade-in fade-out first-pic pic ...)]
 
     [(k first-pic pic ...)
      ; =>
-     #'(picture-slide* "" first-pic pic ...)]))
+     #'(picture-slide* "" #t #t first-pic pic ...)]))
 
 (define-syntax (picture-slide* stx)
   (define (build-transitions pic id acc)
@@ -197,34 +214,40 @@
                               #`(fade-pict #,(stx-car id) #,acc
                                            (scale #,(stx-car pic) (+ #,(stx-car id) #,(stx-car (stx-cdr id))))))]))
   (syntax-case stx ()
-    [(k title first-pic pic ...)
+    [(k title fade-in fade-out first-pic pic ...)
      ; =>
      (with-syntax ([(first-id) (generate-temporaries #'(first-pic))]
                    [(id ...) (generate-temporaries #'(pic ...))]
                    [(last-id) (generate-temporaries #'(1))])
        (with-syntax ([body (build-transitions #'(pic ...) #'(id ...)
                                               #`(cellophane (scale first-pic (+ 1 #,(stx-car #'(id ...))))
-                                                            first-id))])
+                                                            (if fade-in first-id 1)))])
          #'(play-n
             #:skip-first? #t
             #:skip-last? #t
             #:title title
             (λ (first-id id ... last-id)
-              (cellophane body (- 1 last-id))))))]))
+              (cellophane body (if fade-out (- 1 last-id) 1))))))]))
 
 (define-syntax (section stx)
   (syntax-case stx ()
     [(k #:title section-title slides ...)
      ; =>
      (with-syntax ([pretty-slide (datum->syntax #'k 'pretty-slide)]
+                   [flip-slide (datum->syntax #'k 'flip-slide)]
+                   [pretty->flip-slide (datum->syntax #'k 'pretty->flip-slide)]
+                   [flip->pretty-slide (datum->syntax #'k 'flip->pretty-slide)]
                    [start-pretty-slide (datum->syntax #'k 'start-pretty-slide)]
+                   [end-pretty-slide (datum->syntax #'k 'end-pretty-slide)]
                    [header-slide (datum->syntax #'k 'header-slide)]
+                   ;[insert-slide (datum->syntax #'k insert-slide)]
                    [picture-slide (datum->syntax #'k 'picture-slide)])
        #'(let ([pretty-slide* pretty-slide]
                [flip-slide* flip-slide]
                [pretty->flip-slide* pretty->flip-slide]
                [flip->pretty-slide* flip->pretty-slide]
                [start-pretty-slide* start-pretty-slide]
+               [end-pretty-slide* end-pretty-slide]
                [header-slide* header-slide]
                [insert-slide* insert-slide]
                [transition-slide* transition-slide])
@@ -260,6 +283,10 @@
              (unless title (set! title section-title))
              (apply start-pretty-slide* data #:title title))
 
+           (define (end-pretty-slide #:title [title #f] . data)
+             (unless title (set! title section-title))
+             (apply end-pretty-slide* data #:title title))
+
            (define (header-slide #:title [title #f] #:reversed [reversed #f]
                                  #:append [append 'top] #:distance [distance 0]
                                  #:fade-in [fade-in #t] #:fade-out [fade-out #t]
@@ -293,12 +320,20 @@
 
            (define-syntax (picture-slide stx)
              (syntax-case stx ()
+               [(k #:title title #:fade-in fade-in #:fade-out fade-out first-pic pic (... ...))
+                ; =>
+                #'(picture-slide* title fade-in fade-out first-pic pic (... ...))]
+
                [(k #:title title first-pic pic (... ...))
                 ; =>
-                #'(picture-slide* title first-pic pic (... ...))]
+                #'(picture-slide* title #t #t first-pic pic (... ...))]
+
+               [(k #:fade-in fade-in #:fade-out fade-out first-pic pic (... ...))
+                ; =>
+                #'(picture-slide* section-title fade-in fade-out first-pic pic (... ...))]
 
                [(k first-pic pic (... ...))
                 ; =>
-                #'(picture-slide* section-title first-pic pic (... ...))]))
+                #'(picture-slide* section-title #t #t first-pic pic (... ...))]))
 
            slides ...))]))

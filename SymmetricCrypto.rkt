@@ -7,7 +7,7 @@
 	"slideshow-macros.rkt")
 
 (title-slide
- (colorize (large-text "Symmetric Cryptography") "black")
+ (colorize (large-text "Cryptography") "black")
  (colorize (medium-text "Leif Andersen") "blue")
  (colorize (medium-text "Michael Bradshaw") "blue")
  (colorize (t "University of Utah") "red"))
@@ -92,6 +92,9 @@
               (medium-text "  →  Message"))))
 
 (pretty-slide
+ (large-text "Symmetric Cryptography"))
+
+(pretty-slide
  (massive-text "Advanteges"))
 
 (pretty-slide
@@ -145,7 +148,7 @@
  (large-text "A one way function"))
 
 (pretty-slide
- (massive-text "Common Hash Functions"))
+ (large-text "Common Hash Functions"))
 
 (pretty-slide
  #:title "Common Hash Functions"
@@ -189,7 +192,7 @@
  (colorize (double-massive-text "FAIL!") "red"))
 
 (pretty-slide
- (massive-text "Asymmetric Cryptography"))
+ (large-text "Asymmetric Cryptography"))
 
 (pretty-slide
  #:title "Common Algorithms"
@@ -203,15 +206,41 @@
 (flip->pretty-slide
  (massive-text "Key Generation"))
 
-#;(section
+(section
  #:title "RSA Key Generation"
  (picture-slide
+  #:fade-in #t
+  #:fade-out #f
   (hc-append 0
              (medium-text "Choose to numbers ")
              (medium-$$ "p")
              (medium-text " and ")
              (medium-$$ "q"))
-  (massive-$$ "n = pq"))
+  (massive-$$ "n = pq")
+  (large-$$ "\\varphi(n) = \\varphi(pq)"))
+ (transition-slide
+  #:title "RSA Key Generation"
+  #:append 'left
+  #:distance 25
+  #:header (large-$$ "\\varphi(n) = \\varphi(pq)")
+  (large-$$ "=\\varphi(p)\\varphi(q)"))
+ (picture-slide
+  #:fade-in #f
+  #:fade-out #t
+  (hc-append 25
+             (large-$$ "\\varphi(n) = \\varphi(pq)")
+             (large-$$ "=\\varphi(p)\\varphi(q)"))
+  (vc-append 0
+             (hc-append 25
+                        (large-text "Choose ")
+                        (large-$$ "e : 1 < e < \\varphi(n)"))
+             (hc-append 25
+                        (large-text "and ")
+                        (large-$$ "\\gcd(e, \\varphi(n)) = 1")))
+  (hc-append 25
+             (medium-text "Determine ")
+             (medium-$$ "d : d^{-1} \\equiv e (\\textrm{mod}\\ \\varphi(n))"))
+  )
  )
 
 (pretty-slide
