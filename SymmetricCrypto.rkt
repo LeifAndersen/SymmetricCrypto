@@ -309,7 +309,9 @@
 (shrink-transition-slide
  #:start-size double-massive-$$-size
  #:end-size large-$$-size
- ($$ "\\varphi"))
+ ;($$ "\\varphi"))
+ (t "\\varphi"))
+
 
 (transition-slide
  #:append 'left
@@ -326,6 +328,9 @@
 
 (pretty-slide
  (massive-text "ECC"))
+
+(pretty-slide
+ (massive-$$ "y^2 = x^3 + ax + b"))
 
 (pretty-slide
  (massive-text "Questions?"))
