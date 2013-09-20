@@ -347,7 +347,6 @@
  ;($$ "\\varphi"))
  (t "\\varphi"))
 
-
 (transition-slide
  #:append 'left
  #:header (large-$$ "\\varphi")
@@ -361,11 +360,56 @@
 (rotate->pretty-slide
  (scale (bitmap "EulerPhi.PNG") 1.5))
 
-(pretty-slide
+(pretty->flip-slide
  (massive-text "ECC"))
 
-(pretty-slide
+(flip->pretty-slide
+ (large-text "Elliptic Curve Cryptography"))
+
+(pretty->flip-slide
  (massive-$$ "y^2 = x^3 + ax + b"))
+
+(flip->pretty-slide
+ (scale (bitmap "ecclines.png") 2.5))
+
+(insert-slide
+ #:distance 50
+ #:append 'center-h
+ #:left (massive-text "RSA")
+ #:right (massive-text "ECC")
+ #:insert (massive-$$ "<"))
+
+(pretty->flip-slide
+ (large-text "Major problem with")
+ (large-text "Asymmetric Cryptography"))
+
+(flip-slide
+ (colorize (double-massive-text "SLOW") "red"))
+
+(flip->pretty-slide
+ #:fade-out #f
+ (massive-text "Solution:"))
+
+(transition-slide
+ #:distance 25
+ #:header (massive-text "Solution:")
+ (medium-text "Use Symmetric Cryptography"))
+
+(end-pretty-slide
+ (massive-text "Solution:")
+ (medium-text "Use Symmetric Cryptography"))
+
+(pretty-slide
+ #:title "Fast Asymmetric Cryptography"
+ (item "Generate symmetric key.")
+ 'next
+ (item "Encrypt data with symmetric key.")
+ 'next
+ (item "Encrypt symmetric key with public key.")
+ 'next
+ (item "Send encrypted symmetric key and data to recipient.")
+ 'next
+ (item "Recipient decrypts symmetric key with private key, and decrypts data with symmetric key."))
 
 (pretty-slide
  (massive-text "Signing"))
