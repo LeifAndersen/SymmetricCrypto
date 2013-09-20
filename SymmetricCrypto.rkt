@@ -4,7 +4,7 @@
          slideshow/code
          slideshow/latex
          (for-syntax syntax/stx)
-	"slideshow-macros.rkt")
+         "slideshow-macros.rkt")
 
 (title-slide
  (colorize (large-text "Cryptography") "black")
@@ -219,7 +219,7 @@
  #:title "You Hate Rainbows"
  (bitmap "i_hate_rainbows__by_jakrabbit.jpg"))
 
-#;(picture-slide
+(picture-slide
  (scale (bitmap "SLCPD.jpg") 2.5)
  (scale (bitmap "SLCPDdump.png") 0.65)
  (bitmap "google.png")
@@ -344,8 +344,8 @@
 (shrink-transition-slide
  #:start-size double-massive-$$-size
  #:end-size large-$$-size
- ;($$ "\\varphi"))
- (t "\\varphi"))
+ ($$ "\\varphi"))
+ ;(t "\\varphi"))
 
 (transition-slide
  #:append 'left
