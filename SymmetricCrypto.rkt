@@ -103,7 +103,7 @@
  'next
  (item "Password Based Encryption")
  'next
- (item "Another Advantage"))
+ (item "Generally Easier to Implement"))
 
 (pretty-slide
  (massive-text "Disadvanteges"))
@@ -209,14 +209,12 @@
 (flip->pretty-slide
  (massive-text "<hash>:<salt>"))
 
-(pretty-slide
- (large-text "Reasons to Salt"))
+(header-slide
+ #:header (massive-text "Reasons to Salt"))
 
 (pretty-slide
- #:title "Reasons to Salt"
- (item "Reason")
- 'next
- (item "Aother Reason"))
+ #:title "You Hate Rainbows"
+ (bitmap "i_hate_rainbows__by_jakrabbit.jpg"))
 
 #;(picture-slide
  (scale (bitmap "SLCPD.jpg") 2.5)
