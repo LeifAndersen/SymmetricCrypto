@@ -103,7 +103,7 @@
  'next
  (item "Password Based Encryption")
  'next
- (item "Another Advantage"))
+ (item "Generally Easier to Implement"))
 
 (pretty-slide
  (massive-text "Disadvanteges"))
@@ -136,7 +136,28 @@
  (item "Serpent"))
 
 (pretty-slide
- (massive-text "AES"))
+ #:title "AES"
+ (item "Advanced Encryption Standard")
+ 'next
+ (item "National Institute of Standards and Technology (NIST)")
+ 'next
+ (item "Non-regulatory agency of the United States Department of Commerce")
+ 'next
+ (item "Rijndael Cipher"))
+
+(pretty-slide
+ #:title "AES"
+ (item "Advanced Encryption Standard")
+ 'next
+ (item "SubBytes - Lookup table byte substition")
+ 'next
+ (item "ShiftRows - Circularly shifts each row differently")
+ 'next
+ (item "MixColums - Mix each column together with an invertible matrix")
+ 'next
+ (item "AddRoundKey - Add a key from the Kijndael key schedule for the round")
+ 'next
+ (item "Animation: http://bit.ly/5CB5m"))
 
 (pretty-slide
  (massive-text "Hashing"))
@@ -191,14 +212,12 @@
 (flip->pretty-slide
  (massive-text "<hash>:<salt>"))
 
-(pretty-slide
- (large-text "Reasons to Salt"))
+(header-slide
+ #:header (massive-text "Reasons to Salt"))
 
 (pretty-slide
- #:title "Reasons to Salt"
- (item "Reason")
- 'next
- (item "Aother Reason"))
+ #:title "You Hate Rainbows"
+ (bitmap "i_hate_rainbows__by_jakrabbit.jpg"))
 
 #;(picture-slide
  (scale (bitmap "SLCPD.jpg") 2.5)
