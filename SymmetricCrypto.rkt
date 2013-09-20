@@ -182,6 +182,15 @@
  'next
  (item "SHA-256"))
 
+(pretty-slide
+ (large-text "Good Hashing Practices"))
+
+(pretty-slide
+ #:title "Good Hashing Practices"
+ (item "Pick a slow hash function.")
+ 'next
+ (item "Hash multiple times."))
+
 (start-pretty-slide
  (bitmap "rainbow.jpg"))
 
@@ -211,6 +220,28 @@
 
 (flip->pretty-slide
  (massive-text "<hash>:<salt>"))
+
+(pretty-slide
+ (massive-text "How to Salt"))
+
+(pretty-slide
+ #:title "How to Salt"
+ (item "Append random characters to string.")
+ 'next
+ (item "Hash string.")
+ 'next
+ (item "Store results of hash with random characters from salt attached."))
+
+(pretty-slide
+ (massive-text "Verify Salted Hash"))
+
+(pretty-slide
+ #:title "Verify Salted Hash"
+ (item "Read salt from database.")
+ 'next
+ (item "Append salt to string.")
+ 'next
+ (item "Check if checksums match."))
 
 (header-slide
  #:header (massive-text "Reasons to Salt"))
@@ -413,6 +444,26 @@
 
 (pretty-slide
  (massive-text "Signing"))
+
+(pretty-slide
+ #:title "Signing"
+ (item "Hash Message.")
+ 'next
+ (item "Encrypt hash with private key.")
+ 'next
+ (item "Send message and encrypted hash to recipient")
+ 'next
+ (item "Recipient decrypts hash with public key.")
+ 'next
+ (item "Recipient hashes message.")
+ 'next
+ (item "If checksums match, recipient knows message came from sender."))
+
+(header-slide
+ #:header (colorize (massive-text "WARNING!!!") "red")
+ (large-text "Never encrypt something")
+ (large-text "a third party")
+ (large-text "requests encrypted."))
 
 (pretty-slide
  (massive-text "Questions?"))
