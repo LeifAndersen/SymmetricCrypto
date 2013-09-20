@@ -400,8 +400,14 @@
 (pretty->flip-slide
  (massive-$$ "y^2 = x^3 + ax + b"))
 
-(flip->pretty-slide
+(flip-slide
  (scale (bitmap "ecclines.png") 2.5))
+
+(flip-slide
+ (large-text "1011"))
+
+(flip->pretty-slide
+ (large-$$ "1x^3 + 0x^2 + 1x + 1"))
 
 (insert-slide
  #:distance 50
