@@ -136,7 +136,28 @@
  (item "Serpent"))
 
 (pretty-slide
- (massive-text "AES"))
+ #:title "AES"
+ (item "Advanced Encryption Standard")
+ 'next
+ (item "National Institute of Standards and Technology (NIST)")
+ 'next
+ (item "Non-regulatory agency of the United States Department of Commerce")
+ 'next
+ (item "Rijndael Cipher"))
+
+(pretty-slide
+ #:title "AES"
+ (item "Advanced Encryption Standard")
+ 'next
+ (item "SubBytes - Lookup table byte substition")
+ 'next
+ (item "ShiftRows - Circularly shifts each row differently")
+ 'next
+ (item "MixColums - Mix each column together with an invertible matrix")
+ 'next
+ (item "AddRoundKey - Add a key from the Kijndael key schedule for the round")
+ 'next
+ (item "Animation: http://bit.ly/5CB5m"))
 
 (pretty-slide
  (massive-text "Hashing"))
