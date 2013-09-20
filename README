@@ -1,5 +1,6 @@
 To run presentation:
 
-1. Install racket (5.3 or later should work).
-2. Run install.sh script.
-3. Run slideshow SymmetricCrypto.rkt
+1. Install Racket (5.3 or later should work).
+2. Install a LaTeX distrobution.
+3. Run install.sh script.
+4. Run slideshow SymmetricCrypto.rkt
