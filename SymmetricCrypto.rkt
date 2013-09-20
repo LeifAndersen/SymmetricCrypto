@@ -148,6 +148,9 @@
  (large-text "A one way function"))
 
 (pretty-slide
+ (bitmap "hash.png"))
+
+(pretty-slide
  (large-text "Common Hash Functions"))
 
 (pretty-slide
@@ -344,6 +347,9 @@
 
 (pretty-slide
  (massive-$$ "y^2 = x^3 + ax + b"))
+
+(pretty-slide
+ (massive-text "Signing"))
 
 (pretty-slide
  (massive-text "Questions?"))
