@@ -158,7 +158,20 @@
  'next
  (item "SHA-256"))
 
-(pretty-slide
+(start-pretty-slide
+ (bitmap "rainbow.jpg"))
+
+(shrink-transition-slide
+ #:start-size 1
+ #:end-size 0.75
+ (bitmap "rainbow.jpg"))
+
+(transition-slide
+ #:header (scale (bitmap "rainbow.jpg") 0.75)
+ (massive-text "Rainbow Tables"))
+
+(end-pretty-slide
+ (scale (bitmap "rainbow.jpg") 0.75)
  (massive-text "Rainbow Tables"))
 
 (header-slide
@@ -215,7 +228,7 @@
   #:fade-in #t
   #:fade-out #f
   (hc-append 0
-             (medium-text "Choose to numbers ")
+             (medium-text "Choose two numbers ")
              (medium-$$ "p")
              (medium-text " and ")
              (medium-$$ "q"))
