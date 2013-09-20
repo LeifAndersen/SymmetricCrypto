@@ -317,10 +317,11 @@
  #:distance 0
  (large-$$ "(n) = n \\prod_{p|n}\\left(1-\\frac{1}{p}\\right)"))
 
-(end-pretty-slide
+(pretty->rotate-slide
+ #:fade-in #f
  (large-$$ "\\varphi(n) = n \\prod_{p|n}\\left(1-\\frac{1}{p}\\right)"))
 
-(rotate-slide
+(rotate->pretty-slide
  (scale (bitmap "EulerPhi.PNG") 1.5))
 
 (pretty-slide

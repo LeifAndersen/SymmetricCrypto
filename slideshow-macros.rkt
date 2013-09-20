@@ -65,7 +65,37 @@
    (λ (n1 n2)
       (rotate
        (apply vc-append `(,distance ,@data))
-       (+ (- 1 n1) n2)))))
+       (* 3 (+ (- 1 n1) (- n2)))))))
+
+(define (pretty->rotate-slide #:title [title ""]
+                              #:fade-in [fade-in #t] #:rotate-out [rotate-out #t]
+                              #:distance [distance 0] . data)
+  (play-n
+   #:skip-first? #t
+   #:skip-last? #t
+   #:title title
+   (λ (n1 n2)
+      (fade-pict
+       (if fade-in n1 1)
+       (t "")
+       (rotate
+        (apply vc-append `(,distance ,@data))
+        (if rotate-out (* 3 (- n2)) 0))))))
+
+(define (rotate->pretty-slide #:title [title ""]
+                              #:rotate-in [rotate-in #t] #:fade-out [fade-out #t]
+                              #:distance [distance 0] . data)
+  (play-n
+   #:skip-first? #t
+   #:skip-last? #t
+   #:title title
+   (λ (n1 n2)
+      (fade-pict
+       (if fade-out n2 0)
+       (rotate
+        (apply vc-append `(,distance ,@data))
+        (if rotate-in (* 3 (- 1 n1)) 0))
+       (t "")))))
 
 (define (flip-slide #:title [title ""]
                     #:flip-in [flip-in #t] #:flip-out [flip-out #t]
