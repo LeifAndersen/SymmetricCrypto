@@ -191,8 +191,11 @@
  (bitmap "RainbowCracked.png")
  (colorize (double-massive-text "FAIL!") "red"))
 
-(pretty-slide
+(pretty->flip-slide
  (large-text "Asymmetric Cryptography"))
+
+(flip->pretty-slide
+ (large-text "Common Algorithms"))
 
 (pretty-slide
  #:title "Common Algorithms"
@@ -219,17 +222,28 @@
   (massive-$$ "n = pq")
   (large-$$ "\\varphi(n) = \\varphi(pq)"))
  (transition-slide
-  #:title "RSA Key Generation"
   #:append 'left
   #:distance 25
   #:header (large-$$ "\\varphi(n) = \\varphi(pq)")
   (large-$$ "=\\varphi(p)\\varphi(q)"))
+ (slide
+  #:title "RSA Key Generation"
+  (hc-append 25 (large-$$ "\\varphi(n) = \\varphi(pq)")
+             (large-$$ "=\\varphi(p)\\varphi(q)")))
+ (transition-slide
+  #:distance 25
+  #:header (hc-append 25 (large-$$ "\\varphi(n) = \\varphi(pq)")
+                      (large-$$ "=\\varphi(p)\\varphi(q)"))
+  (large-$$ "=(p-1)(q-1)"))
+
  (picture-slide
   #:fade-in #f
   #:fade-out #t
-  (hc-append 25
-             (large-$$ "\\varphi(n) = \\varphi(pq)")
-             (large-$$ "=\\varphi(p)\\varphi(q)"))
+  (vc-append 25
+             (hc-append 25
+                        (large-$$ "\\varphi(n) = \\varphi(pq)")
+                        (large-$$ "=\\varphi(p)\\varphi(q)"))
+             (large-$$ "=(p-1)(q-1)"))
   (vc-append 0
              (hc-append 25
                         (large-text "Choose ")
@@ -239,9 +253,75 @@
                         (large-$$ "\\gcd(e, \\varphi(n)) = 1")))
   (hc-append 25
              (medium-text "Determine ")
-             (medium-$$ "d : d^{-1} \\equiv e (\\textrm{mod}\\ \\varphi(n))"))
-  )
- )
+             (medium-$$ "d : d^{-1} \\equiv e\\ (\\textrm{mod}\\ \\varphi(n))"))
+  (vc-append 0
+             (hc-append 25
+                        (large-$$ "d")
+                        (large-text " is the private key."))
+             (hc-append 25
+                        (large-$$ "e")
+                        (large-text " is the public key.")))))
+
+(pretty-slide
+ (massive-text "Encryption"))
+
+(section
+ #:title "Encryption"
+ (picture-slide
+  #:fade-in #t
+  #:fade-out #f
+  (vc-append 0
+             (hc-append 0
+                        (large-text "Convert message text ")
+                        (large-$$ "M")
+                        (large-text " into some "))
+             (large-$$ "m : 0 \\leq m < n"))
+  (massive-$$ "c \\equiv m^{e}\\ (\\textrm{mod}\\ n)"))
+ (transition-slide
+  #:header (massive-$$ "c \\equiv m^{e}\\ (\\textrm{mod}\\ n)")
+  #:distance 25
+  (hc-append 0
+             (medium-text "Where ")
+             (medium-$$ "c")
+             (medium-text " is your encrypted text")))
+ (end-pretty-slide
+  (massive-$$ "c \\equiv m^{e}\\ (\\textrm{mod}\\ n)")
+  (hc-append 0
+             (medium-text "Where ")
+             (medium-$$ "c")
+             (medium-text " is your encrypted text"))))
+
+(pretty-slide
+ (massive-text "Decryption"))
+
+(section
+ #:title "Decryption"
+ (pretty-slide
+  (massive-$$ "e \\equiv c^{d}\\ (\\textrm{mod}\\ n)")))
+
+(pretty->flip-slide
+ (large-text "Why is this secure?"))
+
+(flip->pretty-slide
+ #:fade-out #f
+ (double-massive-$$ "\\varphi"))
+
+(shrink-transition-slide
+ #:start-size double-massive-$$-size
+ #:end-size large-$$-size
+ ($$ "\\varphi"))
+
+(transition-slide
+ #:append 'left
+ #:header (large-$$ "\\varphi")
+ #:distance 0
+ (large-$$ "(n) = n \\prod_{p|n}\\left(1-\\frac{1}{p}\\right)"))
+
+(end-pretty-slide
+ (large-$$ "\\varphi(n) = n \\prod_{p|n}\\left(1-\\frac{1}{p}\\right)"))
+
+(rotate-slide
+ (scale (bitmap "EulerPhi.PNG") 1.5))
 
 (pretty-slide
  (massive-text "ECC"))

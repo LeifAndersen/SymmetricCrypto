@@ -29,6 +29,14 @@
 (define (massive-$$ txt)
   (scale ($$ txt) 3))
 
+(define (double-massive-$$ txt)
+  (scale ($$ txt) 7))
+
+(define medium-$$-size 1.5)
+(define large-$$-size 2)
+(define massive-$$-size 3)
+(define double-massive-$$-size 7)
+
 (define (title-slide . data)
   (play-n
    #:skip-last? #t
@@ -46,6 +54,18 @@
     'next
     'alts
     `(,data ()))))
+
+(define (rotate-slide #:title [title ""]
+                      #:rotate-in [rotate-in #t] #:rotate-out [rotate-out #t]
+                      #:distance [distance 0] . data)
+  (play-n
+   #:skip-first? #t
+   #:skip-last? #t
+   #:title title
+   (λ (n1 n2)
+      (rotate
+       (apply vc-append `(,distance ,@data))
+       (+ (- 1 n1) n2)))))
 
 (define (flip-slide #:title [title ""]
                     #:flip-in [flip-in #t] #:flip-out [flip-out #t]
@@ -81,7 +101,7 @@
    #:skip-last? #t
    (λ (n1 n2)
       (fade-pict
-       (if fade-out n2 1)
+       (if fade-out n2 0)
        (scale
         (apply vc-append `(,distance ,@data))
         (max 0.001 n1) 1)
@@ -102,6 +122,17 @@
    (animate-slide
     'alts
     `(,data ()))))
+
+(define (shrink-transition-slide #:title [title ""]
+                                 #:start-size [start-size 1] #:end-size [end-size 1]
+                                 #:distance [distance 0] . data)
+  (play-n
+   #:skip-first? #t
+   #:skip-last? #t
+   (λ (n1)
+      (scale (apply vc-append `(,distance ,@data))
+             (max (+ (* start-size (- 1 n1)) (* end-size n1)) 0.001)))))
+
 
 (define (header-slide #:title [title ""] #:reversed [reversed #f]
                       #:append [append 'top] #:distance [distance 0]
@@ -240,7 +271,8 @@
                    [start-pretty-slide (datum->syntax #'k 'start-pretty-slide)]
                    [end-pretty-slide (datum->syntax #'k 'end-pretty-slide)]
                    [header-slide (datum->syntax #'k 'header-slide)]
-                   ;[insert-slide (datum->syntax #'k insert-slide)]
+                   [insert-slide (datum->syntax #'k 'insert-slide)]
+                   [transition-slide (datum->syntax #'k 'transition-slide)]
                    [picture-slide (datum->syntax #'k 'picture-slide)])
        #'(let ([pretty-slide* pretty-slide]
                [flip-slide* flip-slide]
