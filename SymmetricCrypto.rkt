@@ -110,9 +110,7 @@
 
 (pretty-slide
  #:title "Disadvantages"
- (item "Shared Key")
- 'next
- (item "Another disadvantage"))
+ (item "Shared Key"))
 
 (pretty-slide
  (large-text "Common Algorithms"))
@@ -155,7 +153,7 @@
  'next
  (item "MixColums - Mix each column together with an invertible matrix")
  'next
- (item "AddRoundKey - Add a key from the Kijndael key schedule for the round")
+ (item "AddRoundKey - Add a key from the Rijndael key schedule for the round")
  'next
  (item "Animation: http://bit.ly/5CB5m"))
 
